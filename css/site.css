@@ -499,3 +499,19 @@ a { color: inherit; }
   .beat__num { font-size: 52px; }
   .beat--left.reveal, .beat--right.reveal { transform: translate(0, 20px); }
 }
+
+/* ============================================================
+   Statement band (intro line after hero)
+   ============================================================ */
+.statement { padding: var(--space-9) 0 var(--space-8); }
+.statement__kicker {
+  font-family: var(--font-script); font-size: 32px; color: var(--brand-red);
+  margin: 0 0 16px; line-height: 1;
+}
+.statement__text {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(26px, 3.6vw, 44px); line-height: 1.25; letter-spacing: -0.02em;
+  color: var(--fg1); max-width: 980px; margin: 0; text-wrap: balance;
+}
+.statement__hl { color: var(--brand-red); position: relative; white-space: nowrap; }
+@media (max-width: 600px) { .statement__hl { white-space: normal; } }
