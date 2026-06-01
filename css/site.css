@@ -100,8 +100,9 @@ a { color: inherit; }
 }
 .hero__media--restaurant::after { background-image: url(../assets/img/hero-restaurant.png); }
 .hero__media--creator::after {
-  /* warm placeholder until a real Mr Gole hero photo is supplied — TODO[owner]: replace with licensed photo */
-  background-image: linear-gradient(120deg, #3a2a1e 0%, #6b4a32 45%, #9a6b44 100%);
+  /* Mr Gole at The Second Plate (owner-supplied photo) */
+  background-image: url(../assets/img/hero-restaurant.png);
+  background-position: center 30%;
 }
 .hero__scrim { position: absolute; inset: 0; background: var(--hero-scrim); z-index: 1; }
 .hero__aside {
