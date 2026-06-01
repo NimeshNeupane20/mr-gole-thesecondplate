@@ -97,6 +97,37 @@
     }
   }
 
+  /* ---- Video gallery: scroll-driven scatter -> settle (transform/opacity only) ---- */
+  var gallery = document.querySelector('.vgallery');
+  if (gallery && !reduceMotion && window.matchMedia('(min-width: 561px)').matches) {
+    var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+    gallery.setAttribute('data-morph', '');
+    var vcards = Array.prototype.slice.call(gallery.querySelectorAll('.vcard'));
+    var params = vcards.map(function (c, i) {
+      var dir = i % 2 ? -1 : 1;
+      return { x: dir * (70 + (i * 13) % 80), y: 90 + (i * 29) % 70, r: dir * (5 + (i * 7) % 9), delay: i * 0.04 };
+    });
+    var ticking = false;
+    var draw = function () {
+      ticking = false;
+      var rect = gallery.getBoundingClientRect();
+      var vh = window.innerHeight || 800;
+      var p = clamp((vh * 0.92 - rect.top) / (vh * 0.52), 0, 1);
+      for (var i = 0; i < vcards.length; i++) {
+        var q = params[i];
+        var cp = clamp((p - q.delay) / 0.55, 0, 1);
+        cp = 1 - Math.pow(1 - cp, 3);
+        var inv = 1 - cp;
+        vcards[i].style.transform = 'translate(' + (q.x * inv).toFixed(1) + 'px,' + (q.y * inv).toFixed(1) + 'px) rotate(' + (q.r * inv).toFixed(2) + 'deg) scale(' + (0.9 + 0.1 * cp).toFixed(3) + ')';
+        vcards[i].style.opacity = cp.toFixed(3);
+      }
+    };
+    var onScrollG = function () { if (!ticking) { ticking = true; requestAnimationFrame(draw); } };
+    window.addEventListener('scroll', onScrollG, { passive: true });
+    window.addEventListener('resize', onScrollG, { passive: true });
+    draw();
+  }
+
   /* ---- Footer year ---- */
   var yr = document.querySelector('[data-year]');
   if (yr) yr.textContent = new Date().getFullYear();

@@ -55,7 +55,8 @@ a { color: inherit; }
   transition: background .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
 }
 .site-header.is-solid {
-  background: var(--bg-cream);
+  background: rgba(244,242,238,0.72);
+  backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sticky);
 }
@@ -80,7 +81,11 @@ a { color: inherit; }
 .nav-right { display: flex; align-items: center; gap: 12px; }
 
 /* When header sits over a light page (restaurant content below short hero) it can start solid */
-.site-header--prefers-solid { background: var(--bg-cream); border-bottom-color: var(--border); }
+.site-header--prefers-solid {
+  background: rgba(244,242,238,0.72);
+  backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
+  border-bottom-color: var(--border);
+}
 .site-header--prefers-solid .logo,
 .site-header--prefers-solid .nav-link { color: var(--fg1); }
 
@@ -98,7 +103,7 @@ a { color: inherit; }
   content: ""; position: absolute; inset: 0;
   background-size: cover; background-position: center 32%; background-repeat: no-repeat;
 }
-.hero__media--restaurant::after { background-image: url(../assets/img/hero-restaurant.png); }
+.hero__media--restaurant::after { background-image: url(../assets/img/billboard.png); background-position: center; background-color: #f4f2ee; }
 .hero__media--creator::after {
   /* Mr Gole at The Second Plate (owner-supplied photo) */
   background-image: url(../assets/img/hero-restaurant.png);
@@ -515,3 +520,104 @@ a { color: inherit; }
 }
 .statement__hl { color: var(--brand-red); position: relative; white-space: nowrap; }
 @media (max-width: 600px) { .statement__hl { white-space: normal; } }
+
+/* ============================================================
+   Hero statement overlay (landing)
+   ============================================================ */
+/* scrim scoped to landing hero — darkens the left/bottom text column, fades over subjects */
+.hero--creator .hero__scrim {
+  background:
+    linear-gradient(100deg, rgba(18,12,8,0.82) 0%, rgba(18,12,8,0.55) 26%, rgba(18,12,8,0.14) 52%, rgba(18,12,8,0) 74%),
+    linear-gradient(to top, rgba(18,12,8,0.60) 0%, rgba(18,12,8,0.05) 36%, transparent 55%);
+}
+/* refined "Namaste" kicker: thin red rule + Devanagari + tracked label, cream for AA contrast */
+.hero__kicker {
+  display: inline-flex; align-items: center; gap: 12px; margin: 0 0 18px; line-height: 1;
+}
+.hero__kicker-rule {
+  width: 34px; height: 2px; background: var(--brand-red); border-radius: 2px; display: inline-block;
+}
+.hero__kicker-ne {
+  font-family: var(--font-body); font-weight: 600; font-size: 17px; color: #fff; letter-spacing: 0.01em;
+}
+.hero__kicker-en {
+  font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 0.26em;
+  text-transform: uppercase; color: #fff; opacity: 0.9;
+}
+.hero__statement {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(27px, 3.6vw, 48px); line-height: 1.2; letter-spacing: -0.02em;
+  color: #fff; max-width: 820px; margin: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.4); text-wrap: balance;
+}
+.hero__statement span {
+  text-decoration: underline; text-decoration-color: var(--brand-red);
+  text-decoration-thickness: 5px; text-underline-offset: 6px;
+}
+@media (max-width: 600px) {
+  .hero__kicker-ne { font-size: 16px; }
+  .hero__statement { font-size: clamp(23px, 6.2vw, 32px); }
+  .hero--creator .hero__scrim {
+    background: linear-gradient(to top, rgba(18,12,8,0.82) 0%, rgba(18,12,8,0.30) 46%, rgba(18,12,8,0.12) 100%);
+  }
+}
+
+/* ============================================================
+   Visually-hidden (a11y) + brand hero (billboard)
+   ============================================================ */
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+.hero--brand { min-height: 600px; }
+.hero--brand .hero__scrim {
+  background: linear-gradient(to top, rgba(20,14,8,0.5), rgba(20,14,8,0.05) 34%, transparent 60%);
+}
+
+/* ============================================================
+   Video gallery — scatter→settle morph (progressive enhancement)
+   ============================================================ */
+.vgallery {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; perspective: 1200px;
+}
+.vcard { text-decoration: none; display: block; will-change: transform, opacity; }
+.vgallery[data-morph] .vcard { opacity: 0; }            /* hidden until JS drives the settle */
+.vcard__inner {
+  display: block; background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-card); overflow: hidden; transform-style: preserve-3d;
+  transition: transform .35s var(--ease), border-color .25s var(--ease), box-shadow .35s var(--ease);
+}
+.vcard:hover .vcard__inner, .vcard:focus-visible .vcard__inner {
+  transform: translateY(-10px) rotateX(5deg) rotateY(-4deg) scale(1.04);
+  border-color: var(--border-strong); box-shadow: var(--shadow-float);
+}
+.vcard__thumb {
+  display: flex; align-items: center; justify-content: center; position: relative;
+  aspect-ratio: 16/9; background-size: cover; background-position: center; background-color: #2b1d14;
+}
+.vcard__play {
+  width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.92);
+  display: flex; align-items: center; justify-content: center;
+  transform: scale(0.86); opacity: 0.85; transition: transform .3s var(--ease), opacity .3s var(--ease);
+}
+.vcard__play svg { width: 20px; height: 20px; margin-left: 3px; color: var(--brand-red); }
+.vcard:hover .vcard__play { transform: scale(1); opacity: 1; }
+.vcard__views {
+  position: absolute; bottom: 10px; right: 10px; background: rgba(20,14,8,0.8); color: #fff;
+  font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: var(--radius-pill);
+}
+.vcard__body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; }
+.vcard__title { font-family: var(--font-display); font-weight: 600; font-size: 17px; line-height: 1.25; color: var(--fg1); }
+.vcard__cta {
+  display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--brand-red);
+  opacity: 0; transform: translateY(4px); transition: opacity .3s var(--ease), transform .3s var(--ease);
+}
+.vcard__cta svg { width: 14px; height: 14px; }
+.vcard:hover .vcard__cta, .vcard:focus-visible .vcard__cta { opacity: 1; transform: none; }
+
+@media (max-width: 900px) { .vgallery { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .vgallery { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) {
+  .vgallery[data-morph] .vcard { opacity: 1 !important; transform: none !important; }
+  .vcard__inner { transition: none; }
+}
