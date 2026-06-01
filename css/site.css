@@ -55,7 +55,7 @@ a { color: inherit; }
   transition: background .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
 }
 .site-header.is-solid {
-  background: rgba(244,242,238,0.72);
+  background: rgba(244,242,238,0.5);
   backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom-color: var(--border);
   box-shadow: var(--shadow-sticky);
@@ -82,7 +82,7 @@ a { color: inherit; }
 
 /* When header sits over a light page (restaurant content below short hero) it can start solid */
 .site-header--prefers-solid {
-  background: rgba(244,242,238,0.72);
+  background: rgba(244,242,238,0.5);
   backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px);
   border-bottom-color: var(--border);
 }
@@ -621,3 +621,11 @@ a { color: inherit; }
   .vgallery[data-morph] .vcard { opacity: 1 !important; transform: none !important; }
   .vcard__inner { transition: none; }
 }
+
+/* neutral hours badge (honest — real open/closed needs confirmed hours) */
+.badge-hours {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-chip); color: var(--fg1); border: 1px solid var(--border);
+  font-weight: 700; font-size: 13px; padding: 7px 14px; border-radius: var(--radius-pill);
+}
+.badge-hours svg { color: var(--brand-red); }
