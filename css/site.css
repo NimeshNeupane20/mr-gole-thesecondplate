@@ -202,6 +202,7 @@ a { color: inherit; }
 .video-card__thumb {
   aspect-ratio: 16/9; position: relative; overflow: hidden;
   background: linear-gradient(135deg, #2b1d14, #5a3c28);
+  background-size: cover; background-position: center;
   display: flex; align-items: center; justify-content: center;
 }
 .video-card__play {
@@ -321,6 +322,7 @@ a { color: inherit; }
 .kv { display: flex; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--border); }
 .kv:last-of-type { border-bottom: 0; }
 .kv__icon { width: 22px; height: 22px; color: var(--brand-red); flex-shrink: 0; margin-top: 2px; }
+.kv__icon svg { width: 100%; height: 100%; display: block; }
 .kv__label { font-size: 13px; color: var(--fg3); text-transform: uppercase; letter-spacing: .05em; }
 .kv__value { font-size: 16px; color: var(--fg1); font-weight: 500; }
 .kv__value a:hover { color: var(--brand-red); }
@@ -362,6 +364,28 @@ a { color: inherit; }
 }
 
 /* ============================================================
+   Milestones (journey / recognition) — 4-up
+   ============================================================ */
+.lanes--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ============================================================
+   Dish cards (menu with photos)
+   ============================================================ */
+.dish-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+.dish-card {
+  background: #fff; border: 1px solid var(--border); border-radius: var(--radius-card); overflow: hidden;
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.dish-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+.dish-card__img { aspect-ratio: 4/3; background-size: cover; background-position: center; }
+.dish-card__body { padding: 22px 24px; }
+.dish-card__row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.dish-card__name { font-family: var(--font-display); font-weight: 600; font-size: 21px; color: var(--fg1); line-height: 1.2; }
+.dish-card__price { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: var(--brand-red); white-space: nowrap; }
+.dish-card__price--ask { font-family: var(--font-body); font-size: 13px; color: var(--fg3); }
+.dish-card__desc { font-size: 14px; line-height: 1.5; color: var(--fg2); margin: 10px 0 0; }
+
+/* ============================================================
    Scroll-reveal motion (calm, no overshoot)
    ============================================================ */
 .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
@@ -380,6 +404,8 @@ a { color: inherit; }
 @media (max-width: 960px) {
   :root { --text-hero: 56px; --text-h1: 40px; --text-h2: 30px; --space-9: 64px; }
   .video-grid, .lanes, .testi-grid { grid-template-columns: 1fr 1fr; }
+  .lanes--4 { grid-template-columns: repeat(2, 1fr); }
+  .dish-grid { grid-template-columns: 1fr 1fr; }
   .socials { grid-template-columns: 1fr 1fr; }
   .split { flex-direction: column; }
   .split--reverse { flex-direction: column; }
@@ -394,7 +420,8 @@ a { color: inherit; }
   :root { --text-hero: 44px; --gutter: 18px; }
   .main-nav { display: none; }
   .nav-right .label-hide { display: none; }
-  .video-grid, .lanes, .testi-grid, .socials, .footer-grid { grid-template-columns: 1fr; }
+  .video-grid, .lanes, .testi-grid, .socials, .footer-grid,
+  .lanes--4, .dish-grid { grid-template-columns: 1fr !important; }
   .stats { gap: 28px; }
   .split__text { padding: 32px 24px; }
   .rating-score { font-size: 52px; }
